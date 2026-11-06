@@ -1,0 +1,1 @@
+Built-in image_gen; transparent_background=true. Original home boa as identity reference; preserve proportions, face and texture. Sleepy half-lidded eyes and mischievous open smile, navy star sleeping cap, pajama collar, glowing purple phone held by tail and crescent accessory. White sticker edge, alpha transparency, no backdrop.

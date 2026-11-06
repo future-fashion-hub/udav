@@ -1,0 +1,3 @@
+Built-in image_gen; transparent_background=true.
+
+Edit existing two fencing UDAV boas sticker. Change ONLY headwear: REMOVE both purple-white sports headbands and replace them with proper fencing protective MASKS, fine black/metal mesh face cages with purple padded rims and protective bib, shaped to accommodate each long boa snout. Faces remain faintly visible behind realistic fine mesh, same angry competitive expressions. Keep EXACT original heads/body proportions, thick coils, scale texture, two crossed foils held by tails, all poses, no self-fusion. No hands or limbs. True transparent alpha background, white die-cut outline, full sticker with margin, no text.

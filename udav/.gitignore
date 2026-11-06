@@ -1,0 +1,32 @@
+node_modules/
+dist/
+native/dist-check/
+native/.expo/
+
+# Local design exports, screenshots and build metadata
+.frontend-design/
+.claude/
+qa/
+public/review.html
+public/battle-review.html
+native/.claude/
+native/apk-config-check.json
+native/build-status.json
+releases/
+*.apk
+*.aab
+*.log
+*.tsbuildinfo
+.DS_Store
+
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.jks
+*.keystore
+*.p8
+*.p12
+*.pem
+*.key

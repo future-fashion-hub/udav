@@ -1,0 +1,3 @@
+Built-in image_gen; transparent_background=true.
+
+Precise local edit to attached movie boa sticker: REMOVE ONLY the two extra small dark pupil/eye circles visible INSIDE the colored red and blue GLASS LENSES. Make those lenses clean colored translucent reflective material with highlights but NO pupil symbols/circles printed or embedded inside lenses. CRITICAL preserve the snake's REAL eyeballs and REAL black pupils BEHIND/ABOVE glasses visible above frame, unchanged. Do NOT remove or blank real pupils from those actual eyes. Preserve everything else exactly: white glasses frame, face, headband, phone/clapper18+, popcorn, body scales, pose, white sticker outline, actual transparent alpha background.

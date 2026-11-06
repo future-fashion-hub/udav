@@ -1,0 +1,3 @@
+Built-in image_gen; transparent_background=true.
+
+Edit attached astronaut boa sticker ONLY correcting anatomy and helmet interior. Remove the purple ribbed hose/headband-like tube INSIDE glass helmet behind eyes entirely; leave natural scaled head visible, preserve eyes. Remove ANY human arm/shoulder/sleeve protruding from side of torso; close suit side into smooth sleeveless vest around snake body. Snake is entirely limbless with one naturally tapering tail wrapped around phone, free tip visible; no extra arms. Keep external backpack, clear helmet, purple neck seal, all outfit details except removed arm, phone, original boa girth/pose, lime scales, face and stars unchanged. Preserve actual alpha transparency, white sticker edge, no lettering.

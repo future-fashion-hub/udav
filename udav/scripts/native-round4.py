@@ -1,0 +1,9 @@
+from pathlib import Path
+p=Path('native/App.tsx');s=p.read_text(encoding='utf-8');s='import { MaterialCommunityIcons } from "@expo/vector-icons";\n'+s
+s=s.replace('<Image source={images.me} style={s.profileAvatar} />','''<View style={{width:110,height:110,alignSelf:'center',marginVertical:18}}><Image source={images.me} style={{width:110,height:110,borderRadius:55}}/><Image source={require('./assets/udav/crown.png')} style={{position:'absolute',left:-27,top:-15,width:47,height:47,transform:[{rotate:'-12deg'}]}}/><Pressable accessibilityLabel="Редактировать профиль" onPress={()=>setSheet('edit')} style={{position:'absolute',right:-9,top:-8,width:42,height:42,borderRadius:21,backgroundColor:'#d6ff00',alignItems:'center',justifyContent:'center',borderWidth:1.5,borderColor:'#15110e',shadowColor:'#17120e',shadowOffset:{width:4,height:5},shadowOpacity:1,shadowRadius:0,elevation:5}}><MaterialCommunityIcons name="pencil-outline" size={22} color="#15110e"/></Pressable></View>''')
+s=s.replace('{button("Редактировать профиль", () => setSheet("edit"), true)}','')
+s=s.replace('style={[s.row, p.name === name && s.selected]}','style={[s.row,{paddingHorizontal:18,backgroundColor:p.name===name?"#d6ff00":"#f2e5ff",borderRadius:22,marginBottom:10},p.name === name && s.selected]}')
+s=s.replace('<Text style={s.bold}>{i + 1}</Text>','<Text style={[s.bold,{width:45,height:54,textAlign:"center",textAlignVertical:"center",lineHeight:54,fontSize:21}]}>{i + 1}</Text>')
+s=s.replace('  button: {','  button: {\n    borderWidth:1.5,borderColor:"#15110e",').replace('  score: {','  score: {\n    borderWidth:1.5,borderColor:"#15110e",').replace('borderWidth: 0,\n    borderColor: "#15110e",','borderWidth: 1.5,\n    borderColor: "#15110e",')
+s=s.replace('  h2: {','  h2: {\n    paddingLeft:3,')
+p.write_text(s,encoding='utf-8')

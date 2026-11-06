@@ -1,0 +1,12 @@
+node_modules/
+.expo/
+dist/
+dist-check/
+dist-parity/
+export-parity.log
+.git/
+*.log
+
+.claude/
+apk-config-check.json
+build-status.json

@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "УДАВ",
+    "slug": "udav",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.udav.app",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Разрешите УДАВ использовать движения телефона для батлов."
+        }
+      ]
+    ],
+    "owner": "danila22811s-team",
+    "extra": {
+      "eas": {
+        "projectId": "5f9ef979-2099-4fe7-8ddb-5758eea10ba8"
+      }
+    }
+  }
+}

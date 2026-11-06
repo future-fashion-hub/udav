@@ -1,0 +1,1089 @@
+:root {
+  --udav-paper: #fffaf2;
+  --udav-ink: #15110e;
+  --udav-lime: #d6ff00;
+  --udav-purple: #c779ef;
+  --udav-radius: 28px;
+  --udav-gap: 18px;
+}
+/* Identical bundled font bytes in the browser and native app. */
+@font-face { font-family: Arial; src: url('/assets/fonts/Arimo-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: Arial; src: url('/assets/fonts/Arimo-Bold.ttf') format('truetype'); font-weight: 700 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Dela Gothic One"; src: url('/assets/fonts/DelaGothicOne.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+.device-screen .bottom-sheet .sheet-title { font-family: Arial, sans-serif; }
+.udav-shell {
+  position: relative;
+  height: 100%;
+  background: var(--udav-paper);
+  color: var(--udav-ink);
+  font-family: Arial, sans-serif;
+}
+.udav-scroll {
+  height: 100%;
+  background: var(--udav-paper);
+}
+.home-art {
+  padding-top: 56px;
+  padding-bottom: 88px;
+  background: #fffaf2;
+}
+.home-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.art-header {
+  position: relative;
+}
+.hotspot {
+  position: absolute;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.avatar-hotspot {
+  right: 2%;
+  top: 20%;
+  width: 17%;
+  height: 67%;
+}
+.points-hotspot {
+  left: 47%;
+  top: 38%;
+  width: 33%;
+  height: 30%;
+}
+.points-hotspot span {
+  display: block;
+  background: var(--udav-lime);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+}
+.image-button {
+  display: block;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.nearby {
+  width: 100%;
+}
+.challenge {
+  width: 94.48%;
+  margin: 0 auto;
+}
+.invite {
+  width: 56.1%;
+  margin: 2.35px auto 12px;
+}
+.udav-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 12px 32px;
+  background: var(--udav-paper);
+  gap: 4px;
+  z-index: 5;
+}
+.udav-nav button {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  border-radius: 35px;
+  padding: 7px 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--udav-ink);
+}
+.udav-nav button[aria-current] {
+  background: var(--udav-lime);
+}
+.udav-nav img {
+  height: 26px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+button:active {
+  transform: scale(0.97);
+}
+button:focus-visible {
+  outline: 3px solid var(--udav-purple);
+  outline-offset: 3px;
+}
+.inner-screen {
+  padding: 65px 20px 125px;
+}
+.inner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.inner-header button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.inner-header img {
+  width: 112px;
+}
+.inner-header .score {
+  background: var(--udav-lime);
+  font-weight: 800;
+  border-radius: 30px;
+  padding: 12px;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin: 15px 0;
+}
+h1 {
+  font-size: 40px;
+  line-height: 1.04;
+  letter-spacing: -1.7px;
+  margin: 10px 0 16px;
+  font-weight: 900;
+}
+h2 {
+  font-size: 22px;
+  letter-spacing: -0.6px;
+  margin: 26px 0 8px;
+}
+p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.rank-row,
+.history-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 0;
+  border: 0;
+  border-bottom: 1px solid #e5dfd5;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+}
+.rank-row img,
+.history-row img {
+  width: 44px;
+  border-radius: 50%;
+}
+.rank-row strong,
+.history-row strong {
+  flex: 1;
+}
+.rank-row small,
+.history-row small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+.is-me {
+  background: var(--udav-lime);
+  border-radius: 18px;
+  padding: 18px 10px;
+}
+.ranking {
+  margin-top: 30px;
+}
+.profile-top {
+  text-align: center;
+}
+.profile-top > img {
+  width: 100px;
+  border-radius: 50%;
+}
+.profile-top h1 {
+  font-size: 34px;
+}
+.outline,
+.primary {
+  border: 0;
+  display: block;
+  width: 100%;
+  padding: 17px;
+  border-radius: var(--udav-radius);
+  font-size: 17px;
+  font-weight: 800;
+  margin: 14px 0;
+  background: var(--udav-lime);
+  color: var(--udav-ink);
+}
+.outline {
+  background: transparent;
+  border: 1.5px solid var(--udav-ink);
+  font-size: 14px;
+  padding: 13px;
+}
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 28px 0;
+  border-top: 1px solid #ded7cc;
+  border-bottom: 1px solid #ded7cc;
+  padding: 22px 0;
+  text-align: center;
+  font-size: 12px;
+}
+.stats b {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 6px;
+}
+.badges {
+  display: flex;
+  gap: 8px;
+}
+.badges button {
+  width: 33.33%;
+  border: 1px solid #ded7cc;
+  border-radius: 18px;
+  padding: 14px 5px;
+  background: transparent;
+  color: var(--udav-ink);
+}
+.badges button[aria-pressed="true"] {
+  background: #ead3fb;
+  border-color: var(--udav-purple);
+}
+.badges img {
+  height: 30px;
+  mix-blend-mode: multiply;
+}
+.badges b,
+.badges small {
+  display: block;
+  font-size: 11px;
+  margin-top: 8px;
+}
+.badges small {
+  font-size: 10px;
+}
+.empty {
+  padding: 20px 0;
+  font-size: 14px;
+}
+.note {
+  font-size: 12px;
+  color: #756e66;
+  text-align: center;
+}
+.battle-snake {
+  width: 100%;
+  border-radius: 20px;
+}
+.meter-wrap {
+  margin: 18px 0;
+}
+.meter-wrap > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.meter {
+  height: 22px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #e8dfed;
+}
+.meter span {
+  display: block;
+  height: 100%;
+  background: var(--udav-lime);
+  transform-origin: left;
+  transition: transform 120ms linear;
+}
+.udav-sheet-body {
+  padding: 0 8px 20px;
+  text-align: center;
+  color: var(--udav-ink);
+}
+.sheet-avatar {
+  width: 80px;
+  border-radius: 50%;
+}
+.invite-code {
+  display: block;
+  font-size: 28px;
+  padding: 25px 0;
+}
+.udav-sheet-body label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  margin: 16px 0;
+}
+.udav-sheet-body input {
+  display: block;
+  width: 100%;
+  border: 1px solid #d8cde0;
+  border-radius: 14px;
+  font: inherit;
+  padding: 14px;
+  margin-top: 7px;
+  background: #fffaf2;
+}
+.udav-sheet-body h2 {
+  margin-top: 15px;
+}
+@media (prefers-reduced-motion: reduce) {
+  button,
+  .meter span {
+    transition: none;
+  }
+}
+.udav-shell {
+  container-type: size;
+}
+.home-art {
+  width: min(100%, calc((100cqh - 150px) * 0.492));
+  margin: auto;
+  padding-top: 56px;
+  padding-bottom: 94px;
+}
+.udav-nav {
+  padding-bottom: 30px;
+}
+.udav-nav button {
+  font-size: 15px;
+}
+
+.home-nav {
+  left: 50%;
+  right: auto;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(100%, calc((100cqh - 150px) * 0.492));
+  height: 52px;
+  padding: 0;
+  background: url(/assets/udav/bottom-nav.png) center/100% auto no-repeat;
+}
+.home-nav button {
+  opacity: 0;
+  width: 33.33%;
+  height: 100%;
+}
+.nearby img {
+  clip-path: inset(0 14% 0 0);
+}
+.udav-nav {
+  left: 50%;
+  right: auto;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(100%, calc((100cqh - 150px) * 0.492));
+  height: 52px;
+  padding: 0;
+  gap: 0;
+  justify-content: space-between;
+  background: var(--udav-paper);
+}
+.udav-nav button {
+  opacity: 1;
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+  gap: 4px;
+  padding: 7px 4px;
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  height: 36px;
+  border-radius: 25px;
+}
+.udav-nav img {
+  height: 24px;
+  width: 24px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.primary,
+.outline,
+.rank-row strong,
+.profile-top h1 {
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+}
+.rank-row strong {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.rank-row small {
+  font-family: Arial, sans-serif;
+}
+.primary {
+  font-size: 14px;
+}
+.outline {
+  font-size: 12px;
+}
+.rank-row {
+  background: #f2e5ff;
+  margin-bottom: 10px;
+  border-radius: 22px;
+  padding: 16px 12px;
+  border: 0;
+  gap: 9px;
+}
+.rank-row:nth-child(2) {
+  background: #eee9e2;
+}
+.rank-row:nth-child(3) {
+  background: #f2ddc7;
+}
+.rank-row.is-me {
+  background: var(--udav-lime);
+}
+.rank-row .rank-cup {
+  width: 49px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 0;
+  mix-blend-mode: multiply;
+}
+.stats {
+  border: 0;
+  border-radius: 26px;
+  background: var(--udav-lime);
+  padding: 24px 10px;
+  gap: 8px;
+  transform: rotate(-1deg);
+  box-shadow: 4px 5px 0 #17120e;
+}
+.stats > div {
+  flex: 1;
+}
+.stats b {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 27px;
+}
+.stats > div:nth-child(2) {
+  border-left: 1px solid #15110e33;
+  border-right: 1px solid #15110e33;
+}
+.sticker-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 12px 0;
+}
+.showcase-sticker {
+  min-width: 0;
+  text-align: center;
+}
+.showcase-sticker img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.showcase-sticker b {
+  display: block;
+  font-size: 10px;
+  line-height: 1.35;
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+}
+.opponent-stats {
+  display: flex;
+  justify-content: center;
+  gap: 52px;
+  margin: 20px 0;
+}
+.opponent-stats b {
+  display: block;
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 27px;
+}
+.opponent-stats span {
+  font-size: 12px;
+}
+.udav-sheet-body .sticker-showcase {
+  margin: 14px 0;
+}
+.udav-sheet-body h2 {
+  font-size: 24px;
+}
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.achievement-grid button {
+  border: 2px solid transparent;
+  background: #f5eee5;
+  border-radius: 22px;
+  padding: 10px;
+  color: var(--udav-ink);
+}
+.achievement-grid button[aria-pressed="true"] {
+  border-color: var(--udav-purple);
+  background: #efdcff;
+}
+.achievement-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.achievement-grid b,
+.achievement-grid span,
+.achievement-grid small {
+  display: block;
+}
+.achievement-grid b {
+  font-size: 12px;
+  line-height: 1.4;
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+}
+.achievement-grid span {
+  font-size: 11px;
+  line-height: 1.4;
+  margin: 8px 0;
+}
+.achievement-grid small {
+  font-size: 11px;
+  font-weight: 700;
+}
+.achievement-counter {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 16px;
+}
+.selection-notice {
+  font-size: 12px;
+  min-height: 18px;
+  color: #78229f;
+}
+
+.udav-sheet-body {
+  padding: 0 0 26px;
+}
+.udav-sheet-body .primary {
+  margin-bottom: 18px;
+}
+.udav-sheet-body .showcase-sticker b {
+  font-size: 9px;
+}
+.udav-sheet-body .sheet-avatar {
+  width: 65px;
+}
+.udav-sheet-body .opponent-stats {
+  margin: 12px 0;
+}
+.udav-sheet-body h2 {
+  margin: 12px 0;
+}
+.inner-header .score,
+.profile-top > .outline,
+.inner-screen > .outline,
+.empty > .primary {
+  box-shadow: 4px 5px 0 #17120e;
+  border: 0;
+}
+.profile-top > .outline,
+.inner-screen > .outline {
+  background: var(--udav-paper);
+  margin-bottom: 22px;
+}
+.udav-nav {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: none;
+  width: 100%;
+  height: 92px;
+  padding: 10px 12px 34px;
+  gap: 6px;
+  background: var(--udav-paper);
+  box-sizing: border-box;
+  isolation: isolate;
+}
+.udav-nav button {
+  height: 44px;
+  font-size: 11px;
+  padding: 8px 5px;
+  gap: 5px;
+}
+.udav-nav img {
+  width: 27px;
+  height: 27px;
+}
+.inner-screen {
+  padding-bottom: 130px;
+}
+.showcase-sticker {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.showcase-sticker img,
+.rank-cup,
+.udav-nav img,
+.achievement-grid img {
+  mix-blend-mode: normal !important;
+}
+.sticker-showcase {
+  gap: 8px;
+  margin: 18px 0;
+}
+.achievement-grid {
+  gap: 18px;
+  padding: 14px 4px 24px;
+}
+.achievement-grid button {
+  position: relative;
+  background: transparent;
+  border: 0;
+  border-radius: 24px;
+  padding: 5px;
+  box-shadow: none;
+}
+.achievement-grid button[aria-pressed="true"] {
+  background: #d6ff00;
+  box-shadow: 4px 5px 0 #17120e;
+  border: 0;
+}
+.achievement-grid .sticker-slot {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #15110e;
+  color: #d6ff00;
+  font-family: "Dela Gothic One";
+  font-size: 12px;
+  margin: 0;
+}
+.achievement-counter {
+  display: inline-block;
+  background: #d6ff00;
+  box-shadow: 3px 4px 0 #17120e;
+  border-radius: 22px;
+  padding: 10px 18px;
+  margin: 12px 0;
+}
+.achievement-detail > img {
+  width: 70%;
+  max-width: 240px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+.achievement-detail h2 {
+  font-family: "Dela Gothic One";
+  font-size: 20px;
+  line-height: 1.4;
+}
+.udav-sheet-body {
+  background: var(--udav-paper);
+  padding: 12px 10px 30px;
+  border-radius: 22px;
+}
+.achievement-detail .outline {
+  border: 0;
+  box-shadow: 3px 4px 0 #17120e;
+  background: #f1e7db;
+}
+.achievement-grid button:focus-visible,
+.showcase-sticker:focus-visible {
+  outline: 3px solid #15110e;
+  outline-offset: 4px;
+}
+/* Comic controls and shared leaderboard columns. */
+.inner-header .score,
+.primary,
+.outline,
+.profile-edit {
+  border: 1.5px solid var(--udav-ink);
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  box-shadow: 4px 5px 0 #17120e;
+  box-sizing: border-box;
+}
+.inner-screen > .outline {
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 17px;
+  min-height: 56px;
+}
+.empty > .primary {
+  border: 1.5px solid var(--udav-ink);
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 17px;
+  min-height: 56px;
+}
+.rank-row,
+.rank-row.is-me {
+  display: grid;
+  grid-template-columns: 49px 40px minmax(0, 1fr) auto;
+  gap: 9px;
+  padding: 16px 18px;
+  align-items: center;
+}
+.rank-row .rank-position {
+  display: flex;
+  width: 49px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  font-family: "Dela Gothic One";
+  font-size: 21px;
+}
+.rank-row > img:not(.rank-cup) {
+  width: 40px;
+  height: 40px;
+}
+.rank-row .rank-cup {
+  width: 49px;
+  height: 60px;
+}
+.rank-row .rank-points {
+  justify-self: end;
+  white-space: nowrap;
+  font-size: 13px;
+}
+.rank-row strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.profile-avatar-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 8px auto 18px;
+}
+.profile-avatar {
+  display: block;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
+.profile-crown {
+  position: absolute;
+  width: 47px;
+  height: 47px;
+  left: -27px;
+  top: -15px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transform: rotate(-12deg);
+}
+.profile-edit {
+  position: absolute;
+  right: -9px;
+  top: -8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--udav-lime);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--udav-ink);
+}
+.profile-section-title {
+  padding-left: 3px;
+}
+.empty-copy {
+  padding-left: 3px;
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.empty {
+  padding-top: 12px;
+}
+.profile-top {
+  padding-top: 12px;
+}
+:root {
+  --udav-stroke: 3px;
+}
+.udav-shell .primary,
+.udav-shell .outline,
+.udav-shell .inner-header .score,
+.udav-shell .profile-edit,
+.udav-shell .achievement-grid button,
+.udav-shell .achievement-grid button[aria-pressed="true"] {
+  border: var(--udav-stroke) solid var(--udav-ink);
+  box-sizing: border-box;
+}
+.udav-shell .profile-edit {
+  box-shadow: none;
+}
+.udav-shell .achievement-detail .primary,
+.udav-shell .achievement-detail .outline {
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 17px;
+  min-height: 60px;
+  margin: 14px 0;
+  width: 100%;
+}
+.empty-copy {
+  text-align: center;
+  padding-left: 0;
+}
+.udav-nav img {
+  filter: brightness(0);
+}
+.udav-nav svg {
+  width: 27px;
+  height: 27px;
+  flex-shrink: 0;
+  color: var(--udav-ink);
+}
+/* Sheets render in the phone portal, outside the app shell. */
+.udav-sheet-body .primary,
+.udav-sheet-body .outline,
+.udav-sheet-body .achievement-grid button,
+.udav-sheet-body .achievement-grid button[aria-pressed="true"] {
+  border: var(--udav-stroke) solid var(--udav-ink);
+  box-sizing: border-box;
+}
+.udav-sheet-body .achievement-detail .primary,
+.udav-sheet-body .achievement-detail .outline {
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 17px;
+  min-height: 60px;
+  margin: 14px 0;
+  width: 100%;
+}
+:root {
+  --udav-button-base:
+    0 1px 0 #17120e, 0 2px 0 #17120e, 0 3px 0 #17120e, 0 4px 0 #17120e,
+    0 5px 0 #17120e;
+}
+.udav-shell .primary,
+.udav-shell .outline,
+.udav-shell .inner-header .score,
+.udav-sheet-body .primary,
+.udav-sheet-body .outline,
+.udav-sheet-body .achievement-grid button[aria-pressed="true"],
+.udav-sheet-body .achievement-counter {
+  box-shadow: var(--udav-button-base);
+}
+.udav-shell .profile-edit {
+  box-shadow: none;
+}
+:root {
+  --udav-button-base:
+    0.6px 1px 0 #17120e, 1.2px 2px 0 #17120e, 1.8px 3px 0 #17120e,
+    2.4px 4px 0 #17120e, 3px 5px 0 #17120e;
+}
+.udav-sheet-body .achievement-grid button[aria-pressed="false"] {
+  border-color: transparent;
+  box-shadow: none;
+  background: transparent;
+}
+.udav-sheet-body .achievement-grid button[aria-pressed="true"] {
+  box-shadow: var(--udav-button-base);
+  border-color: var(--udav-ink);
+}
+/* Preserve app-owned comic depth when the phone shell focuses a control. */
+.device-screen
+  .udav-sheet-body
+  .achievement-grid
+  button[aria-pressed="true"]:focus,
+.device-screen .udav-sheet-body .primary:focus,
+.device-screen .udav-sheet-body .outline:focus,
+.device-screen .udav-shell .primary:focus,
+.device-screen .udav-shell .outline:focus,
+.device-screen .udav-shell .inner-header .score:focus {
+  box-shadow: var(--udav-button-base) !important;
+}
+.home-challenge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 94.48%;
+  min-height: 64px;
+  margin: 0 auto 5px;
+  padding: 15px 20px;
+  border: var(--udav-stroke) solid var(--udav-ink);
+  border-radius: var(--udav-radius);
+  background: var(--udav-lime);
+  box-shadow: var(--udav-button-base);
+  color: var(--udav-ink);
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.3;
+  box-sizing: border-box;
+}
+.home-challenge svg {
+  width: 32px !important;
+  height: 32px !important;
+  flex-shrink: 0;
+}
+.device-screen .udav-shell .home-challenge:focus {
+  box-shadow: var(--udav-button-base) !important;
+}
+.opponent-stats {
+  gap: 0;
+  justify-content: space-around;
+}
+.opponent-stats > div {
+  flex: 1;
+}
+.opponent-stats b {
+  font-size: 24px;
+}
+.battle-snake {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 265px;
+  object-fit: contain;
+  border-radius: 0;
+}
+.home-challenge{justify-content:center;gap:12px}.home-art .home-challenge .challenge-bolt{display:block;width:38px;height:38px;flex:0 0 38px;object-fit:contain;mix-blend-mode:darken;transform:translateY(3px)}
+
+/* Center the visible avatar/name artwork; source has unused map space on right. */
+.home-art .nearby img { transform: translateX(13.2%); clip-path: inset(0 29.5% 0 0); }
+
+/* Battle: independent live progress, diagonal composition from the chosen mock. */
+.battle-screen { padding-bottom: 38px; }
+.battle-content { --battle-ring-size: 64%; }
+.udav-shell .battle-title {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: clamp(29px, 8.9cqw, 39px);
+  line-height: 1.12;
+  letter-spacing: -1.4px;
+  margin: 8px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 5px solid var(--udav-purple);
+}
+.battle-arena { position: relative; aspect-ratio: 1 / 1.17; container-type: inline-size; }
+.battle-dial { position: absolute; width: var(--battle-ring-size); }
+.battle-dial.is-you { top: 0; left: 0; z-index: 1; }
+.battle-dial.is-opponent { bottom: 0; right: 0; width: 56%; }
+.battle-ring { position: relative; aspect-ratio: 1; }
+.battle-ring svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.battle-ring circle { fill: none; transform: rotate(-90deg); transform-origin: 100px 100px; }
+.ring-outline { stroke: var(--udav-ink); stroke-width: 28; }
+.ring-track { stroke: var(--udav-paper); stroke-width: 23; }
+.ring-fill-outline { stroke: var(--udav-ink); stroke-width: 28; stroke-linecap: round; }
+.ring-fill { stroke: var(--udav-lime); stroke-width: 23; stroke-linecap: round; }
+.is-opponent .ring-fill { stroke: var(--udav-purple); }
+.ring-fill, .ring-fill-outline { transition: stroke-dasharray 160ms linear; }
+.battle-percent {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font: 400 clamp(33px, 13cqw, 56px)/1 "Dela Gothic One", sans-serif;
+  letter-spacing: -2px; font-variant-numeric: tabular-nums;
+}
+.battle-avatar {
+  position: absolute; width: 41%; height: 41%; object-fit: cover;
+  top: -3%; left: 29.5%; border: 2px solid var(--udav-ink);
+  border-radius: 50%; background: var(--udav-purple);
+}
+.battle-player-name {
+  display: block; text-align: center; margin-top: 1px;
+  font: 400 23px/1.25 "Dela Gothic One", sans-serif;
+  overflow-wrap: anywhere;
+}
+.battle-versus {
+  position: absolute; left: 26%; top: 66%; transform: rotate(-12deg);
+  font: 400 35px/1 "Dela Gothic One", sans-serif;
+}
+.battle-cheer { display: flex; align-items: center; gap: 12px; margin: 10px 0 8px; }
+.battle-cheer img { width: 102px; height: 112px; object-fit: contain; flex-shrink: 0; }
+.battle-cheer p {
+  margin: 0; padding-bottom: 7px; border-bottom: 3px solid var(--udav-purple);
+  font: 400 16px/1.4 "Dela Gothic One", sans-serif;
+}
+.battle-exit {
+  display: block; min-height: 44px; padding: 10px 16px; margin: 2px auto 0;
+  background: transparent; border: 0; text-decoration: none; color: #77706b;
+  font: 400 16px/1.4 Arial, sans-serif;
+}
+.motion-unavailable { text-align: center; }
+.motion-unavailable p { font-size: 12px; color: #766e67; margin: 4px 0 12px; }
+.motion-unavailable .outline { font-size: 13px; min-height: 44px; }
+.battle-result-actions { display: grid; gap: 12px; margin: 12px 0; }
+.battle-result-actions button { margin: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ring-fill, .ring-fill-outline { transition: none; }
+}
+@font-face { font-family: "Battle Numbers"; src: url('/assets/fonts/TitanOne-Regular.ttf') format('truetype'); font-display: swap; }
+.reference-art { display: block; position: relative; overflow: hidden; width: 100%; pointer-events: none; }
+.reference-art > img { position: absolute; height: auto; max-width: none; display: block; }
+.udav-shell .battle-screen { padding-top: 65px; }
+.udav-shell .battle-title { border: 0; padding: 0; margin: 0 0 14px; transform: none; }
+.battle-content { --battle-ring-size: 58%; }
+.battle-arena { aspect-ratio: 1 / 1.17; margin-top: 0; }
+.battle-dial.is-you { top: 13%; }
+.battle-dial.is-opponent { width: 51%; bottom: 4%; }
+.battle-avatar { top: -18%; left: 20%; width: 45%; height: 45%; }
+.ring-outline, .ring-fill-outline { stroke-width: 25; }
+.ring-track, .ring-fill { stroke-width: 21; }
+.battle-percent { font-family: "Battle Numbers", sans-serif; font-size: 15cqw; letter-spacing: -1px; font-weight: 400; }
+.battle-player-name { width: 77%; margin: 1px auto 0; }
+.battle-versus { width: 22%; left: 25%; top: 66%; transform: none; }
+.battle-rays { position: absolute; width: 22%; right: 0; top: -10%; }
+.battle-cheer { margin: 0; gap: 8px; }
+.battle-cheer > img { width: 94px; height: 104px; }
+.battle-cheer-copy { flex: 1; min-width: 0; }
+.battle-cheer p { color: var(--udav-ink); border: 0; padding: 0; font-size: 14px; }
+.battle-exit { color: #736d67; margin-top: 4px; }
+
+/* One bounded gameplay viewport, with a single proportional reference canvas. */
+.battle-page {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  padding: 65px 20px calc(var(--mobile-safe-area-height, 34px) + 8px);
+  overflow: hidden;
+}
+.battle-fixed-header { flex: 0 0 62px; margin: 0 0 8px; }
+.battle-fit { flex: 1; min-height: 0; position: relative; }
+.battle-fit-canvas {
+  position: absolute; width: 794px; height: 1480px; left: 50%; top: 0;
+  transform-origin: top center;
+}
+.battle-fit-canvas .battle-content { position: relative; width: 794px; height: 1480px; }
+.battle-fit-canvas .battle-title { position: absolute; top: 22px; left: 67px; width: 660px; margin: 0; font-size: 56px; }
+.battle-fit-canvas .battle-arena { position: absolute; top: 330px; left: 0; width: 794px; height: 900px; aspect-ratio: auto; margin: 0; }
+.battle-fit-canvas .battle-dial.is-you { width: 425px; top: 90px; left: 0; }
+.battle-fit-canvas .battle-dial.is-opponent { width: 380px; top: 490px; right: 0; bottom: auto; }
+.battle-fit-canvas .battle-percent { font-size: 112px; }
+.battle-fit-canvas .is-opponent .battle-percent { font-size: 100px; }
+.battle-fit-canvas .is-you .battle-player-name { width: 41.2%; }
+.battle-fit-canvas .is-opponent .battle-player-name { width: 58.2%; }
+.battle-fit-canvas .battle-versus { width: 100px; left: 358px; top: 452px; }
+.battle-fit-canvas .battle-cheer { position: absolute; top: 1280px; left: 0; width: 794px; height: 130px; gap: 20px; }
+.battle-fit-canvas .battle-cheer > img { width: 145px; height: 145px; }
+.battle-fit-canvas .battle-cheer p { font-size: 31px; line-height: 1.3; }
+.battle-fit-canvas .battle-exit { position: absolute; top: 1420px; left: 0; width: 100%; height: 60px; margin: 0; font-size: 34px; }
+.battle-fit-canvas .is-finished .battle-arena { transform: scale(.84); transform-origin: top left; left: 63px; }
+.battle-fit-canvas .is-finished .battle-cheer { top: 1060px; }
+.battle-fit-canvas .battle-result-actions { position: absolute; top: 1200px; width: 100%; display: flex; gap: 22px; margin: 0; }
+.battle-fit-canvas .battle-result-actions button { flex: 1; min-height: 110px; font-size: 28px; }
