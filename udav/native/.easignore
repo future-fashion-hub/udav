@@ -10,3 +10,21 @@ export-parity.log
 .claude/
 apk-config-check.json
 build-status.json
+
+# EAS archives start at the repository root, including sibling web projects.
+**/node_modules/
+**/dist/
+**/dist-check/
+**/dist-parity/
+**/releases/
+**/.frontend-design/
+**/public/
+**/qa/
+**/design/
+**/.expo/
+**/.claude/
+**/*.apk
+**/*.aab
+**/*.log
+**/build-status.json
+**/apk-config-check.json

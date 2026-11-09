@@ -9,7 +9,7 @@ import { SafeAreaProvider, initialWindowMetrics, useSafeAreaInsets } from "react
 import { BattleScreen } from "./BattleScreen";
 import { createStrokeDetector, decayProgress } from "./battle-motion";
 import { achievements, stickers } from "./achievements";
-import { body, bodyBold, ink, lime, images, cups, v, FullImage, ComicButton, Header, Showcase, Navigation, OpponentStats, Collection, SheetBody } from "./Visual";
+import { body, bodyBold, ink, lime, images, cups, v, FullImage, ComicButton, Header, Showcase, Navigation, OpponentStats, Collection, SheetBody, DetailArt } from "./Visual";
 export default function App() { return <SafeAreaProvider initialMetrics={initialWindowMetrics}><UdavApp /></SafeAreaProvider>; }
 type Match = { won: boolean; time: string; opponent?: string };
 function UdavApp() {
@@ -84,7 +84,13 @@ function UdavApp() {
     if (starting.current) return;
     starting.current = true;
     try {
-      const permission = await DeviceMotion.requestPermissionsAsync();
+      let allowed = false;
+      try {
+        if (await DeviceMotion.isAvailableAsync()) {
+          const permission = await DeviceMotion.requestPermissionsAsync();
+          allowed = permission.granted;
+        }
+      } catch { /* Unsupported/denied sensors must never prevent screen entry. */ }
       setSensor(false);
       if (sheet === "player") setBattleOpponent(selectedPlayer.name);
       else if (tab !== "battle") setBattleOpponent("Саша");
@@ -95,7 +101,7 @@ function UdavApp() {
       progress.current = 0;
       lastShake.current = 0;
       done.current = false;
-      setPlaying(permission.granted);
+      setPlaying(allowed);
     } catch { setPlaying(false); }
     finally { starting.current = false; }
   }
@@ -125,10 +131,11 @@ function UdavApp() {
         DeviceMotion.setUpdateInterval(50);
         subscription = DeviceMotion.addListener(measurement => {
           if (!active || !foreground || done.current) return;
-          received = true; setSensor(true);
+          if (!received) { received = true; setSensor(true); }
           let vertical = measurement.acceleration?.y;
           if (vertical == null) {
-            const raw = measurement.accelerationIncludingGravity.y;
+            const raw = measurement.accelerationIncludingGravity?.y;
+            if (typeof raw !== "number" || !Number.isFinite(raw)) return;
             gravity = gravity === null ? raw : gravity * .9 + raw * .1;
             vertical = raw - gravity;
           }
@@ -204,7 +211,7 @@ function UdavApp() {
               <ComicButton onPress={() => { void start(); }}>{sheet === "player" ? "Батл" : "Начать батл"}</ComicButton>
             </>}
             {sheet === "achievements" && <><View style={v.counter}><Text style={v.counterText}>На витрине: {pins.length}/3</Text></View><Text accessibilityLiveRegion="polite" style={v.notice}>{pinNotice}</Text><Collection pins={pins} onSelect={id => showAchievement(id, "achievements")} /><ComicButton onPress={() => openSheet("")}>Готово</ComicButton></>}
-            {sheet === "achievement" && <><Image source={stickers[achievement]} style={v.detailArt} /><Text style={v.detailTitle}>{achievements[achievement].name}</Text><Text style={[v.body, { textAlign: "center" }]}>{achievements[achievement].desc}</Text>{achievementBack !== "challenge" && <><Text style={v.notice}>{pinNotice}</Text><ComicButton onPress={toggleAchievement}>{pins.includes(achievement) ? "Снять с витрины" : "Выставить на витрину"}</ComicButton></>}<ComicButton outline style={{ backgroundColor: "#f1e7db" }} onPress={() => openSheet(achievementBack)}>Назад</ComicButton></>}
+            {sheet === "achievement" && <><DetailArt source={stickers[achievement]} /><Text style={v.detailTitle}>{achievements[achievement].name}</Text><Text style={[v.body, { textAlign: "center" }]}>{achievements[achievement].desc}</Text>{achievementBack !== "challenge" && <><Text style={v.notice}>{pinNotice}</Text><ComicButton onPress={toggleAchievement}>{pins.includes(achievement) ? "Снять с витрины" : "Выставить на витрину"}</ComicButton></>}<ComicButton outline style={{ backgroundColor: "#f1e7db" }} onPress={() => openSheet(achievementBack)}>Назад</ComicButton></>}
             {sheet === "invite" && <><Text style={[v.body, { textAlign: "center" }]}>Отправь другу свой игровой код:</Text><Text selectable style={{ fontFamily: bodyBold, fontWeight: "700", fontSize: 28, textAlign: "center", color: ink, paddingVertical: 25 }}>UDAV-DANILA</Text><ComicButton onPress={() => { void Clipboard.setStringAsync("UDAV-DANILA").then(() => setCopied(true)).catch(() => setCopied(false)); }}>{copied ? "Код скопирован" : "Скопировать код"}</ComicButton><Text style={v.note}>Подключение друзей появится вместе с сервером.</Text></>}
             {sheet === "edit" && <><Text style={v.label}>Имя</Text><TextInput accessibilityLabel="Имя" maxLength={24} value={name} onChangeText={setName} style={v.input} /><Text style={v.label}>О себе</Text><TextInput accessibilityLabel="О себе" maxLength={100} value={bio} onChangeText={setBio} style={v.input} /><ComicButton onPress={() => { if (name.trim()) openSheet(""); }}>Сохранить</ComicButton></>}
           </SheetBody>

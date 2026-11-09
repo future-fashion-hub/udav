@@ -45,7 +45,7 @@ export function BattleScreen({ width, you, rival, opponent, result, paused, onRe
   const box = (x: number, y: number, w: number, h?: number) => ({ position: "absolute" as const, left: x * scale, top: y * scale, width: w * scale, ...(h === undefined ? {} : { height: h * scale }) });
   const status = result !== null ? result ? "+25 очков. Красиво!" : "В следующий раз дожмёшь!" : paused ? "Готов? Начинай трясти!" : you > rival + 2 ? "Ты впереди. Не сбавляй!" : rival > you + 2 ? "Догоняй, всё ещё впереди!" : "Ноздря в ноздрю!";
   return <View style={{ flex: 1 }} onLayout={event => setAvailable(event.nativeEvent.layout)}>
-    <View style={{ width: 794 * scale, height: 1480 * scale, alignSelf: "center", opacity: scale ? 1 : 0 }}>
+    {scale > 0 && Number.isFinite(scale) && <View style={{ width: 794 * scale, height: 1480 * scale, alignSelf: "center" }}>
       <View style={box(67, 22, 660)}>{result === null ? <ReferenceArt rect={[45, 15, 770, 316]} width={660 * scale} label="Тряси до победы" /> : <Text style={[s.title, { fontSize: 56 * scale }]}>{result ? "Вот это победа!" : "Реванш за тобой"}</Text>}</View>
       <View style={box(result === null ? 0 : 63, 330, 794 * arenaScale, 900 * arenaScale)}>
         <View style={box(0, 90 * arenaScale, 425 * arenaScale)}><Dial value={you} label="Ты" avatar={require("./assets/udav/avatar-me.png")} size={425 * arenaScale * scale} /></View>
@@ -64,7 +64,7 @@ export function BattleScreen({ width, you, rival, opponent, result, paused, onRe
         <Pressable accessibilityRole="button" onPress={onHistory} style={[s.action, actionStyle, { flex: 1, padding: 17 * scale, backgroundColor: paper, justifyContent: "center" }]}><Text style={[s.actionText, { fontSize: 28 * scale }]}>История батлов</Text></Pressable>
       </View>}
       <Pressable accessibilityRole="button" onPress={onExit} style={[box(0, 1420, 794, 60), { alignItems: "center", justifyContent: "center" }]}><Text style={{ color: "#736d67", fontFamily: "UdavBody", fontSize: 34 * scale }}>Выйти из батла</Text></Pressable>
-    </View>
+    </View>}
   </View>;
 }
 

@@ -23,8 +23,17 @@ export function ComicButton({ children, onPress, outline = false, style }: { chi
 export function Header({ points, onHome, onRank }: { points: number; onHome: () => void; onRank: () => void }) {
   return <View style={v.header}><Pressable accessibilityRole="button" accessibilityLabel="На главную" onPress={onHome}><FullImage source={images.logo} width={112} /></Pressable><Pressable accessibilityRole="button" onPress={onRank} style={v.score}><Text style={v.scoreText}>{points.toLocaleString("ru")} очков</Text></Pressable></View>;
 }
+// Measure the row, not the PNG: Android can otherwise use the bitmap's intrinsic
+// dimensions when percentage width/aspectRatio participate in an auto-sized row.
 export function Showcase({ ids, onSelect }: { ids: number[]; onSelect: (id: number) => void }) {
-  return <View style={v.showcase}>{ids.map(id => <Pressable key={id} accessibilityRole="button" accessibilityLabel={achievements[id].name} onPress={() => onSelect(id)} style={{ flex: 1 }}><Image source={stickers[id]} style={{ width: "100%", aspectRatio: 1 }} resizeMode="contain" /></Pressable>)}</View>;
+  const [width, setWidth] = useState(0);
+  const size = Math.max(0, (width - Math.max(0, ids.length - 1) * 8) / Math.max(1, ids.length));
+  return <View style={[v.showcase, { height: size }]} onLayout={event => setWidth(event.nativeEvent.layout.width)}>{size > 0 && ids.map(id => <Pressable key={id} accessibilityRole="button" accessibilityLabel={achievements[id].name} onPress={() => onSelect(id)} style={{ width: size, height: size, flexShrink: 0, overflow: "hidden" }}><Image source={stickers[id]} style={{ width: size, height: size }} resizeMode="contain" /></Pressable>)}</View>;
+}
+export function DetailArt({ source }: { source: ImageSourcePropType }) {
+  const [width, setWidth] = useState(0);
+  const size = Math.min(240, width * .7);
+  return <View onLayout={event => setWidth(event.nativeEvent.layout.width)} style={{ width: "100%", height: size, alignItems: "center" }}>{size > 0 && <Image source={source} style={{ width: size, height: size }} resizeMode="contain" />}</View>;
 }
 export function Navigation({ tab, bottom, onChange }: { tab: string; bottom: number; onChange: (tab: string) => void }) {
   return <View style={[v.nav, { height: 58 + bottom, paddingBottom: bottom }]}>{[["home", "Батлы"], ["rank", "Рейтинг"], ["profile", "Профиль"]].map(([id, label], index) => <Pressable key={id} accessibilityRole="button" accessibilityState={{ selected: id === tab }} onPress={() => onChange(id)} style={[v.navItem, tab === id && { backgroundColor: lime }]}><Svg width={27} height={27} viewBox="0 0 24 24"><Path d={navPaths[index]} fill={ink} /></Svg><Text style={v.navText}>{label}</Text></Pressable>)}</View>;
@@ -34,10 +43,10 @@ export function OpponentStats({ rating }: { rating: number }) {
 }
 export function Collection({ pins, onSelect }: { pins: number[]; onSelect: (id: number) => void }) {
   const [width, setWidth] = useState(0);
-  return <View style={v.collection} onLayout={event => setWidth(event.nativeEvent.layout.width)}>{achievements.map((item, id) => <Pressable accessibilityRole="button" accessibilityLabel={item.name} accessibilityState={{ selected: pins.includes(id) }} key={item.art} onPress={() => onSelect(id)} style={[v.tile, width > 0 && { width: (width - 26) / 2 }, pins.includes(id) && v.selectedTile]}><Image source={stickers[id]} style={{ width: "100%", aspectRatio: 1 }} resizeMode="contain" />{pins.includes(id) && <View style={v.slot}><Text style={v.slotText}>{pins.indexOf(id) + 1}</Text></View>}</Pressable>)}</View>;
+  return <View style={v.collection} onLayout={event => setWidth(event.nativeEvent.layout.width)}>{width > 26 && achievements.map((item, id) => <Pressable accessibilityRole="button" accessibilityLabel={item.name} accessibilityState={{ selected: pins.includes(id) }} key={item.art} onPress={() => onSelect(id)} style={[v.tile, width > 0 && { width: (width - 26) / 2 }, pins.includes(id) && v.selectedTile]}><Image source={stickers[id]} style={{ width: Math.max(0, (width - 26) / 2 - 16), height: Math.max(0, (width - 26) / 2 - 16) }} resizeMode="contain" />{pins.includes(id) && <View style={v.slot}><Text style={v.slotText}>{pins.indexOf(id) + 1}</Text></View>}</Pressable>)}</View>;
 }
 export function SheetBody({ children }: { children: React.ReactNode }) {
-  return <ScrollView style={{ flexGrow: 0, flexShrink: 1 }} keyboardShouldPersistTaps="handled" contentContainerStyle={{ paddingHorizontal: 18, paddingBottom: 24 }}><View style={v.sheetBody}>{children}</View></ScrollView>;
+  return <ScrollView style={{ flexGrow: 0, flexShrink: 1, width: "100%" }} keyboardShouldPersistTaps="handled" contentContainerStyle={{ paddingHorizontal: 18, paddingBottom: 24 }}><View style={v.sheetBody}>{children}</View></ScrollView>;
 }
 export const v = StyleSheet.create({
   app: { flex: 1, backgroundColor: paper }, content: { paddingHorizontal: 20, paddingBottom: 130 },
@@ -56,7 +65,7 @@ export const v = StyleSheet.create({
   navText: { fontFamily: display, fontSize: 11, lineHeight: 13.2, color: ink },
   ranking: { marginTop: 30 }, rankRow: { flexDirection: "row", gap: 9, paddingVertical: 16, paddingHorizontal: 18, borderRadius: 22, marginBottom: 10, alignItems: "center" },
   rankCup: { width: 49, height: 60, resizeMode: "contain" }, rankNumber: { width: 49, height: 60, textAlign: "center", lineHeight: 60, fontFamily: display, fontSize: 21, color: ink },
-  avatar: { width: 40, height: 40, borderRadius: 20 }, rankName: { flex: 1, fontFamily: display, fontSize: 13, lineHeight: 19.5, color: ink },
+  avatar: { width: 40, height: 40, borderRadius: 20 }, rankName: { fontFamily: display, fontSize: 13, lineHeight: 19.5, color: ink },
   rankPoints: { fontFamily: bodyBold, fontWeight: "700", fontSize: 13, color: ink }, rankSub: { fontFamily: body, fontSize: 11, lineHeight: 16.5, marginTop: 5, color: ink },
   note: { fontFamily: body, fontSize: 12, lineHeight: 18, textAlign: "center", color: "#756e66", marginVertical: 12 },
   profileTop: { paddingTop: 12, alignItems: "center" }, avatarWrap: { width: 110, height: 110, marginTop: 8, marginBottom: 18 },
@@ -65,7 +74,7 @@ export const v = StyleSheet.create({
   profileName: { fontFamily: display, fontSize: 34, lineHeight: 35.36, letterSpacing: -1.7, color: ink, marginTop: 0, marginBottom: 2 },
   stats: { flexDirection: "row", marginTop: 28, marginBottom: 2, backgroundColor: lime, borderRadius: 26, paddingVertical: 24, paddingHorizontal: 10, gap: 8, transform: [{ rotate: "-1deg" }], boxShadow: "4px 5px 0 #17120e" },
   stat: { flex: 1, alignItems: "center" }, statNumber: { fontFamily: display, fontSize: 27, color: ink, marginBottom: 6 }, statMiddle: { borderLeftWidth: 1, borderRightWidth: 1, borderColor: "#15110e33" },
-  showcase: { flexDirection: "row", gap: 8, marginVertical: 18 },
+  showcase: { width: "100%", flexShrink: 0, flexDirection: "row", gap: 8, marginVertical: 18 },
   history: { flexDirection: "row", gap: 12, paddingVertical: 18, borderBottomWidth: 1, borderBottomColor: "#e5dfd5", alignItems: "center" }, historyAvatar: { width: 44, height: 44, borderRadius: 22 },
   historyName: { fontFamily: bodyBold, fontSize: 14, fontWeight: "700", color: ink }, historySub: { fontFamily: body, fontSize: 11, lineHeight: 16.5, color: ink, marginTop: 5 },
   overlay: { flex: 1, backgroundColor: "#0006", justifyContent: "flex-end" }, sheet: { backgroundColor: "#fff", borderTopLeftRadius: 22, borderTopRightRadius: 22, overflow: "hidden", minHeight: 260 },

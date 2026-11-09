@@ -197,3 +197,16 @@ Native uses real safe-area insets and DeviceMotion; never embed the webpage in a
 WebView to fake matching. Asset/font/catalogue parity is checked by tests. Browser
 tests remain prohibited. Pixel-level acceptance needs real-device/screenshot
 comparison and must not be claimed from build/TypeScript/asset checks alone.
+
+
+## Android layout repair — 2026-11-09
+
+Never let sticker Image intrinsic dimensions participate in Yoga auto-size layout.
+Showcase/collection/detail images require explicit numeric width AND height derived
+from the measured parent, with a bounded slot. No percentage-only Image width plus
+aspectRatio in auto-height rows. Rank nickname Text must not have flex:1 in its
+vertical parent: center the compact name/subtitle group as in HTML grid rows.
+Do not mount battle SVG/art before a positive finite viewport scale is measured.
+Handle incomplete initial motion samples and unavailable/denied sensor permissions
+without aborting screen entry. Real-device crash/visual acceptance still required;
+TypeScript, lint and bundle success cannot establish pixel equality or no crashes.
