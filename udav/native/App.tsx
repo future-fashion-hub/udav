@@ -9,16 +9,16 @@ import { SafeAreaProvider, initialWindowMetrics, useSafeAreaInsets } from "react
 import { BattleScreen } from "./BattleScreen";
 import { createStrokeDetector, decayProgress } from "./battle-motion";
 import { achievements, stickers } from "./achievements";
-import { body, bodyBold, ink, lime, images, cups, v, FullImage, ComicButton, Header, Showcase, Navigation, OpponentStats, Collection, SheetBody, DetailArt } from "./Visual";
+import { bodyBold, ink, lime, images, cups, v, FullImage, ComicButton, Header, Showcase, Navigation, OpponentStats, Collection, SheetBody, DetailArt } from "./Visual";
 export default function App() { return <SafeAreaProvider initialMetrics={initialWindowMetrics}><UdavApp /></SafeAreaProvider>; }
 type Match = { won: boolean; time: string; opponent?: string };
 function UdavApp() {
   const { width, height } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const top = Math.max(65, insets.top + 6);
-  const bottom = Math.max(34, insets.bottom);
+  const bottom = Platform.OS === "android" ? 4 : Math.max(4, insets.bottom);
   const viewportHeight = height - (Platform.OS === "android" ? insets.bottom : 0);
-  const homeWidth = Math.min(width, (viewportHeight - 150) * .492);
+  const homeWidth = Math.max(1, Math.min(width - 24, (viewportHeight - top - 62 - bottom - 108) / 1.802));
   const [fontsLoaded] = useFonts({ DelaGothicOne_400Regular, BattleNumbers: require("./assets/fonts/TitanOne-Regular.ttf"), UdavBody: require("./assets/fonts/Arimo-Regular.ttf"), UdavBodyBold: require("./assets/fonts/Arimo-Bold.ttf") });
   const [achievement, setAchievement] = useState(0),
     [achievementBack, setAchievementBack] = useState("");
@@ -168,17 +168,17 @@ function UdavApp() {
   if (!fontsLoaded) return <View style={v.app} />;
   return <View style={v.app}><View style={{ flex: 1, marginBottom: Platform.OS === "android" ? insets.bottom : 0 }}>
     <StatusBar barStyle="dark-content" />
-    {tab === "home" ? <ScrollView contentContainerStyle={{ width: homeWidth, alignSelf: "center", paddingTop: 56, paddingBottom: 94 }}>
-      <View>
-        <FullImage source={images.header} width={homeWidth} />
-        <Pressable accessibilityLabel="Мой профиль" onPress={() => go("profile")} style={{ position: "absolute", right: "2%", top: "20%", width: "17%", height: "67%" }} />
-        <Pressable accessibilityLabel={`${points} очков — рейтинг`} onPress={() => go("rank")} style={{ position: "absolute", left: "47%", top: "38%", width: "33%", height: "30%", justifyContent: "center" }}>{points !== 1240 && <Text style={{ backgroundColor: lime, borderRadius: 30, textAlign: "center", fontFamily: body, fontSize: 14, fontWeight: "800", color: ink }}>{points.toLocaleString("ru")} очков</Text>}</Pressable>
+    {tab === "home" ? <View style={{ flex: 1, paddingTop: top, paddingBottom: 62 + bottom, alignItems: "center", justifyContent: "center" }}><View style={{ width: homeWidth }}>
+      <View style={{ height: homeWidth * 230 / 852, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+        <FullImage source={images.logo} width={homeWidth * .34} />
+        <Pressable accessibilityLabel={`${points} очков — рейтинг`} onPress={() => go("rank")} style={{ backgroundColor: lime, borderRadius: 30, paddingHorizontal: 9, paddingVertical: 5 }}><Text style={{ fontFamily: bodyBold, fontSize: homeWidth * .038, color: ink }}>★ {points.toLocaleString("ru")} очков</Text></Pressable>
+        <Pressable accessibilityLabel="Мой профиль" onPress={() => go("profile")}><Image source={images.me} style={{ width: homeWidth * .15, height: homeWidth * .15, borderRadius: homeWidth }} /></Pressable>
       </View>
       <FullImage source={images.hero} width={homeWidth} />
       <Pressable accessibilityLabel="Саша рядом" onPress={() => openSheet("challenge")} style={{ height: homeWidth * 199 / 852, overflow: "hidden" }}><View style={{ left: homeWidth * .132, width: homeWidth * .705, overflow: "hidden" }}><FullImage source={images.nearby} width={homeWidth} /></View></Pressable>
       <Pressable accessibilityRole="button" onPress={() => openSheet("challenge")} style={[v.button, { width: "94.48%", minHeight: 64, alignSelf: "center", flexDirection: "row", gap: 12, alignItems: "center", paddingHorizontal: 20, paddingVertical: 15, marginTop: 0, marginBottom: 5 }]}><Text style={[v.buttonText, { fontSize: 17, lineHeight: 22.1 }]}>Вызвать на батл</Text><Image source={images.bolt} style={{ width: 38, height: 38, resizeMode: "contain", transform: [{ translateY: 3 }] }} /></Pressable>
       <Pressable accessibilityLabel="Пригласить друга" onPress={() => openSheet("invite")} style={{ alignSelf: "center", marginTop: 2.35, marginBottom: 12 }}><FullImage source={images.invite} width={homeWidth * .561} /></Pressable>
-    </ScrollView> : tab === "battle" ? <View style={{ flex: 1, paddingTop: top, paddingHorizontal: 20, paddingBottom: bottom + 8 }}>
+    </View></View> : tab === "battle" ? <View style={{ flex: 1, paddingTop: top, paddingHorizontal: 20, paddingBottom: bottom + 8 }}>
       <View style={{ height: 62, marginBottom: 8 }}><Header points={points} onHome={() => go("home")} onRank={() => go("rank")} /></View>
       <BattleScreen width={width - 40} you={you} rival={rival} opponent={battleOpponent} result={result} paused={!sensor} onReplay={start} onHistory={() => exitBattle("profile")} onExit={() => exitBattle()} />
     </View> : <ScrollView key={tab} contentContainerStyle={[v.content, { paddingTop: top }]}>
@@ -202,19 +202,18 @@ function UdavApp() {
     <Modal visible={!!sheet} transparent animationType="slide" statusBarTranslucent onRequestClose={() => openSheet("")}>
       <KeyboardAvoidingView style={v.overlay} behavior={Platform.OS === "ios" ? "padding" : undefined}>
         <Pressable style={StyleSheet.absoluteFill} accessibilityLabel="Закрыть окно" onPress={() => openSheet("")} />
-        <View style={[v.sheet, { maxHeight: height * (sheet === "achievements" ? .88 : .82), marginBottom: Platform.OS === "android" ? insets.bottom : 0 }]}>
+        <View style={[v.sheet, { height: sheet === "achievements" ? height * .88 : undefined, maxHeight: height * (sheet === "achievements" ? .88 : .82), marginBottom: Platform.OS === "android" ? insets.bottom : 0 }]}>
           <Pressable accessibilityLabel="Закрыть окно" onPress={() => openSheet("")} style={v.handleZone}><View style={v.handle} /></Pressable><Text style={v.sheetTitle}>{sheetTitle}</Text>
-          <SheetBody>
+          {sheet === "achievements" ? <Collection pins={pins} onSelect={id => showAchievement(id, "achievements")} onDone={() => openSheet("")} notice={pinNotice} /> : <SheetBody>
             {(sheet === "challenge" || sheet === "player") && <>
               <Image source={images.sasha} style={[v.sheetAvatar, { height: 65 * 197 / 169 }]} /><Text style={v.sheetH2}>{sheet === "player" ? selectedPlayer.name : "Ну что, вздёрнем?"}</Text><OpponentStats rating={sheet === "player" ? selectedPlayer.points : 1480} /><Showcase ids={[0, 1, 3]} onSelect={id => showAchievement(id, sheet)} />
               {sheet === "challenge" && <Text style={[v.body, { textAlign: "center", fontWeight: "700" }]}>Победа +25 · Поражение −15</Text>}
               <ComicButton onPress={() => { void start(); }}>{sheet === "player" ? "Батл" : "Начать батл"}</ComicButton>
             </>}
-            {sheet === "achievements" && <><View style={v.counter}><Text style={v.counterText}>На витрине: {pins.length}/3</Text></View><Text accessibilityLiveRegion="polite" style={v.notice}>{pinNotice}</Text><Collection pins={pins} onSelect={id => showAchievement(id, "achievements")} /><ComicButton onPress={() => openSheet("")}>Готово</ComicButton></>}
             {sheet === "achievement" && <><DetailArt source={stickers[achievement]} /><Text style={v.detailTitle}>{achievements[achievement].name}</Text><Text style={[v.body, { textAlign: "center" }]}>{achievements[achievement].desc}</Text>{achievementBack !== "challenge" && <><Text style={v.notice}>{pinNotice}</Text><ComicButton onPress={toggleAchievement}>{pins.includes(achievement) ? "Снять с витрины" : "Выставить на витрину"}</ComicButton></>}<ComicButton outline style={{ backgroundColor: "#f1e7db" }} onPress={() => openSheet(achievementBack)}>Назад</ComicButton></>}
             {sheet === "invite" && <><Text style={[v.body, { textAlign: "center" }]}>Отправь другу свой игровой код:</Text><Text selectable style={{ fontFamily: bodyBold, fontWeight: "700", fontSize: 28, textAlign: "center", color: ink, paddingVertical: 25 }}>UDAV-DANILA</Text><ComicButton onPress={() => { void Clipboard.setStringAsync("UDAV-DANILA").then(() => setCopied(true)).catch(() => setCopied(false)); }}>{copied ? "Код скопирован" : "Скопировать код"}</ComicButton><Text style={v.note}>Подключение друзей появится вместе с сервером.</Text></>}
             {sheet === "edit" && <><Text style={v.label}>Имя</Text><TextInput accessibilityLabel="Имя" maxLength={24} value={name} onChangeText={setName} style={v.input} /><Text style={v.label}>О себе</Text><TextInput accessibilityLabel="О себе" maxLength={100} value={bio} onChangeText={setBio} style={v.input} /><ComicButton onPress={() => { if (name.trim()) openSheet(""); }}>Сохранить</ComicButton></>}
-          </SheetBody>
+          </SheetBody>}
         </View>
       </KeyboardAvoidingView>
     </Modal>

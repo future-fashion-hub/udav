@@ -210,3 +210,6 @@ Do not mount battle SVG/art before a positive finite viewport scale is measured.
 Handle incomplete initial motion samples and unavailable/denied sensor permissions
 without aborting screen entry. Real-device crash/visual acceptance still required;
 TypeScript, lint and bundle success cannot establish pixel equality or no crashes.
+
+## Android performance and insets — 2026-11-09
+Keep original sticker images and quality unchanged. Virtualize the collection in its own FlatList, never inside a ScrollView. Android bottom safe area is reserved once by the app wrapper; navigation adds only 4px. Home must fit without scrolling and show a live star/points chip. Launcher icon reuses the site logo on lime.

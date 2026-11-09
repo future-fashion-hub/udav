@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Pressable, ScrollView, StyleSheet, Text, View, type ImageSourcePropType, type ViewStyle } from "react-native";
+import { Image, Pressable, FlatList, ScrollView, StyleSheet, Text, View, type ImageSourcePropType, type ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { navPaths } from "./icons";
 import { achievements, stickers } from "./achievements";
@@ -41,15 +41,27 @@ export function Navigation({ tab, bottom, onChange }: { tab: string; bottom: num
 export function OpponentStats({ rating }: { rating: number }) {
   return <View style={v.opponentStats}>{[[42, "Победы"], [17, "Поражения"], [rating.toLocaleString("ru"), "Рейтинг"]].map(([value, label]) => <View key={label} style={{ flex: 1, alignItems: "center" }}><Text style={v.opponentNumber}>{value}</Text><Text style={v.small}>{label}</Text></View>)}</View>;
 }
-export function Collection({ pins, onSelect }: { pins: number[]; onSelect: (id: number) => void }) {
+// The collection owns its scroll viewport: never nest this list in SheetBody.
+export function Collection({ pins, onSelect, onDone, notice }: { pins: number[]; onSelect: (id: number) => void; onDone: () => void; notice: string }) {
   const [width, setWidth] = useState(0);
-  return <View style={v.collection} onLayout={event => setWidth(event.nativeEvent.layout.width)}>{width > 26 && achievements.map((item, id) => <Pressable accessibilityRole="button" accessibilityLabel={item.name} accessibilityState={{ selected: pins.includes(id) }} key={item.art} onPress={() => onSelect(id)} style={[v.tile, width > 0 && { width: (width - 26) / 2 }, pins.includes(id) && v.selectedTile]}><Image source={stickers[id]} style={{ width: Math.max(0, (width - 26) / 2 - 16), height: Math.max(0, (width - 26) / 2 - 16) }} resizeMode="contain" />{pins.includes(id) && <View style={v.slot}><Text style={v.slotText}>{pins.indexOf(id) + 1}</Text></View>}</Pressable>)}</View>;
+  const size = Math.max(0, (width - 18) / 2);
+  return <View style={{ flex: 1, paddingHorizontal: 18 }} onLayout={event => setWidth(event.nativeEvent.layout.width - 36)}>
+    {size > 0 && <FlatList data={achievements} extraData={pins} numColumns={2} keyExtractor={item => item.art}
+      initialNumToRender={6} maxToRenderPerBatch={4} windowSize={3} updateCellsBatchingPeriod={40}
+      style={{ flexShrink: 1 }} contentContainerStyle={{ backgroundColor: paper, paddingBottom: 12 }} columnWrapperStyle={{ gap: 18 }}
+      ListHeaderComponent={<><View style={v.counter}><Text style={v.counterText}>На витрине: {pins.length}/3</Text></View>{!!notice && <Text style={v.notice}>{notice}</Text>}</>}
+      ListFooterComponent={<ComicButton onPress={onDone}>Готово</ComicButton>}
+      renderItem={({ item, index: id }) => <Pressable accessibilityRole="button" accessibilityLabel={item.name} accessibilityState={{ selected: pins.includes(id) }} onPress={() => onSelect(id)} style={[v.tile, { width: size, height: size, marginBottom: 18 }, pins.includes(id) && v.selectedTile]}>
+        <Image source={stickers[id]} style={{ width: Math.max(0, size - 16), height: Math.max(0, size - 16) }} resizeMode="contain" fadeDuration={0} />
+        {pins.includes(id) && <View style={v.slot}><Text style={v.slotText}>{pins.indexOf(id) + 1}</Text></View>}
+      </Pressable>} />}
+  </View>;
 }
 export function SheetBody({ children }: { children: React.ReactNode }) {
   return <ScrollView style={{ flexGrow: 0, flexShrink: 1, width: "100%" }} keyboardShouldPersistTaps="handled" contentContainerStyle={{ paddingHorizontal: 18, paddingBottom: 24 }}><View style={v.sheetBody}>{children}</View></ScrollView>;
 }
 export const v = StyleSheet.create({
-  app: { flex: 1, backgroundColor: paper }, content: { paddingHorizontal: 20, paddingBottom: 130 },
+  app: { flex: 1, backgroundColor: paper }, content: { paddingHorizontal: 20, paddingBottom: 78 },
   header: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 24 },
   score: { borderWidth: 3, borderColor: ink, boxShadow: base, backgroundColor: lime, borderRadius: 30, padding: 12 },
   scoreText: { fontFamily: bodyBold, fontSize: 16, fontWeight: "800", color: ink },
